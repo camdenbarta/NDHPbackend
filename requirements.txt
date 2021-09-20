@@ -1,0 +1,12 @@
+django
+django-admin
+django-environ
+python-environ 
+djangorestframework
+markdown 
+django-filter
+django-cors-headers
+mysqlclient
+django-mysql
+whitenoise
+Pillow
