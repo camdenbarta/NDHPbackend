@@ -6,7 +6,7 @@ def nameFile(instance, filename):
 class Party_Contact(models.Model):
     name = models.CharField(null=True, blank=False, max_length=60)
     email = models.CharField(null=True, blank=False, max_length=100)
-    phone = models.IntegerField(null=True, blank=False)
+    phone = models.CharField(null=True, blank=False, max_length=15)
     city = models.CharField(null=True, blank=True, max_length=24)
     state = models.CharField(null=True, blank=True, max_length=24)
 
@@ -51,7 +51,7 @@ class Home(models.Model):
 class Contact(models.Model):
     name = models.CharField(null=True, blank=False,max_length=50)
     email = models.CharField(null=True, blank=False, max_length=100)
-    phone = models.IntegerField(null=True, blank=True)
+    phone = models.CharField(null=True, blank=True, max_length=15)
     message = models.CharField(null=True, blank=True,max_length=350)
     created_on = models.DateField(auto_now_add=True)
   
