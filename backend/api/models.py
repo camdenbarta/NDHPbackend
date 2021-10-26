@@ -1,5 +1,6 @@
 from django.db import models
 
+
 def nameFile(instance, filename):
     return '/'.join([filename])
 
@@ -37,7 +38,7 @@ class Meet_Member(models.Model):
     def __str__(self):
         return str(self.name)
 
-class Home(models.Model):
+class Image_Video(models.Model):
     banner = models.ImageField(null=True, blank=True, upload_to=nameFile)
     logo = models.ImageField(null=True, blank=True, upload_to=nameFile)
     video = models.URLField(null=True, blank=True)
@@ -59,10 +60,13 @@ class Contact(models.Model):
         return str(self.name)
 
 class About(models.Model):
-    description = models.TextField(null=True,blank=False,max_length=3000)
+    title = models.CharField(null=True, blank=False, max_length=50)
+    paragraph = models.TextField(null=True,blank=True,max_length=3000)
+    bullet = models.TextField(null=True,blank=True,max_length=3000)
+    updated = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.description)
+        return str(self.title + " --- " + str(self.updated))
 
     
 class Archive(models.Model):
@@ -72,3 +76,6 @@ class Archive(models.Model):
     logo = models.ImageField(null=True, blank=True, upload_to=nameFile)
     video = models.URLField(null=True, blank=True)
     created_on = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.author + " " + self.created_on)

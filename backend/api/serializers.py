@@ -1,4 +1,4 @@
-from .models import About, Archive, Contact, Home, Meet_Member, News_Letter, Party_Contact, Policy_Position
+from .models import About, Archive, Contact, Image_Video, Meet_Member, News_Letter, Party_Contact, Policy_Position
 from rest_framework import serializers
 
 class Party_Contact_Serializer(serializers.ModelSerializer):
@@ -21,9 +21,9 @@ class Meet_Member_Serializer(serializers.ModelSerializer):
         model = Meet_Member
         fields = [ 'name', 'position', 'image', 'about']
 
-class Home_Serializer(serializers.ModelSerializer):
+class Image_Video_Serializer(serializers.ModelSerializer):
     class Meta:
-        model = Home
+        model = Image_Video
         fields = ['banner', 'logo', 'video']
 
 class Contact_Serializer(serializers.ModelSerializer):
@@ -34,7 +34,7 @@ class Contact_Serializer(serializers.ModelSerializer):
 class About_Serializer(serializers.ModelSerializer):
     class Meta:
         model = About
-        fields = ['description']
+        fields = ['title','paragraph', 'bullet', 'updated']
 
 class Archive_Serializer(serializers.ModelSerializer):
     class Meta:

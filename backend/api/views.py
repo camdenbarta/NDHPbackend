@@ -1,7 +1,7 @@
 from backend.settings import EMAIL_HOST_USER, SEND_EMAIL_USER
 from django.http.response import HttpResponse
-from .serializers import About_Serializer, Archive_Serializer, Contact_Serializer, Home_Serializer, Meet_Member_Serializer, News_Letter_Serializer, Party_Contact_Serializer, Policy_Position_Serializer
-from .models import About, Archive, Contact, Home, Meet_Member, News_Letter, Party_Contact, Policy_Position
+from .serializers import About_Serializer, Archive_Serializer, Contact_Serializer, Image_Video_Serializer, Meet_Member_Serializer, News_Letter_Serializer, Party_Contact_Serializer, Policy_Position_Serializer
+from .models import About, Archive, Contact, Image_Video, Meet_Member, News_Letter, Party_Contact, Policy_Position
 from rest_framework import viewsets
 from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
@@ -35,9 +35,9 @@ class Meet_Member_List(viewsets.ModelViewSet):
     def get(self, request):
         return HttpResponse(self.queryset)
 
-class Home_List(viewsets.ModelViewSet):
-    queryset = Home.objects.all()
-    serializer_class = Home_Serializer
+class Image_Video_List(viewsets.ModelViewSet):
+    queryset = Image_Video.objects.all()
+    serializer_class = Image_Video_Serializer
 
     def get(self, request):
         return HttpResponse(self.queryset)
