@@ -1,4 +1,3 @@
-from abc import ABC
 from .models import About, Archive, Contact, Image_Video, Meet_Member, News_Letter, Party_Contact, Policy_Position
 from django.contrib import admin
 

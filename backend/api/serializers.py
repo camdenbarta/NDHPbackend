@@ -1,42 +1,48 @@
-from .models import About, Archive, Contact, Image_Video, Meet_Member, News_Letter, Party_Contact, Policy_Position
+from .models import About, Archive, Contact, Image_Video, Meet_Member, News_Letter, Party_Contact, Policy_Position, PreSet
 from rest_framework import serializers
+
+class PreSet_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = PreSet
+        fields = ['order_no', 'created_at', 'updated_at']
 
 class Party_Contact_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Party_Contact
-        fields = ['name','email','phone','city', 'state']
+        fields = ['order_no','name','email','phone','city', 'state']
 
 class Policy_Position_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Policy_Position
-        fields = ['position_name', 'description']
+        fields = ['order_no','position_name', 'description']
 
 class News_Letter_Serializer(serializers.ModelSerializer):
     class Meta:
         model = News_Letter
-        fields = ['author','body','created_on']
+        fields = ['order_no','title', 'author','body','created_on']
 
 class Meet_Member_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Meet_Member
-        fields = [ 'name', 'position', 'image', 'about']
+        fields = ['order_no','name', 'position', 'image', 'about']
 
 class Image_Video_Serializer(serializers.ModelSerializer):
+    location = serializers.StringRelatedField(many=False)
     class Meta:
         model = Image_Video
-        fields = ['banner', 'logo', 'video']
+        fields = ['location', 'order_no', 'title', 'image', 'video_URL']
 
 class Contact_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = ['name','email', 'phone', 'message','created_on']
+        fields = ['name','email', 'phone', 'message']
 
 class About_Serializer(serializers.ModelSerializer):
     class Meta:
         model = About
-        fields = ['title','paragraph', 'bullet', 'updated']
+        fields = ['order_no','title','paragraph', 'bullet']
 
 class Archive_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Archive
-        fields = ['author', 'body', 'banner', 'logo', 'video', 'created_on']
+        fields = ['order_no','author', 'body', 'banner', 'logo', 'video', 'created_on']

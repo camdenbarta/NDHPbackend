@@ -15,6 +15,12 @@ router.register(r'records', views.Archive_List)
 
 urlpatterns = [ 
     path('', include(router.urls)),
-    path('emailcontact', views.emailContact, name='emailcontact'),
+    path(r'emailcontact', views.emailContact, name='emailcontact'),
+    #path(r'about1',views.about1, name='about1'),
+    #path(r'about2',views.about2, name='about2'),
+    #path(r'about3',views.about3, name='about3'),
+    #path(r'about4',views.about4, name='about4'),
+    #path(r'about5',views.about5, name='about5'),
+    #path(r'about6',views.about6, name='about6'),
 ]
 urlpatterns += staticfiles_urlpatterns()
