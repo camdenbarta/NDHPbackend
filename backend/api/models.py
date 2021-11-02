@@ -74,7 +74,7 @@ class News_Letter(PreSet):
 
 class Meet_Member(PreSet):
     name = models.CharField(null=True, blank=False, max_length=60)
-    position = models.TextField(null=True, blank=False, max_length=50),
+    title =models.CharField(verbose_name="Position Title", null=True, blank=True, max_length=50)
     image = models.ImageField(null=True, blank=True, upload_to=nameFile)
     about = models.TextField(null=True, blank=True, max_length=2000)
 
