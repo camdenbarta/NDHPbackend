@@ -66,8 +66,16 @@ class Policy_Position(PreSet):
 class News_Letter(PreSet):
     title = models.CharField(verbose_name="Title of the Article", null=True, blank=False, max_length=30)
     author = models.CharField(verbose_name="News Letter Author (Optional)", null=True, blank=True, max_length=50)
-    body = models.TextField(verbose_name="News Letter body/ paragraph *Enter one paragraph at a time for page break", null=True, blank=False, max_length=3000)
-    bullet = models.TextField(verbose_name="News Letter Bullet Points (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    body1 = models.TextField(verbose_name=" Body 1 --- Enter one paragraph at a time for page break", null=True, blank=False, max_length=3000)
+    body2 = models.TextField(verbose_name=" Body 2 (Optional) --- Enter one paragraph at a time for page break", null=True, blank=True, max_length=3000)
+    body3 = models.TextField(verbose_name=" Body 3 (Optional) --- Enter one paragraph at a time for page break", null=True, blank=True, max_length=3000)
+    body4 = models.TextField(verbose_name=" Body 4 (Optional) --- Enter one paragraph at a time for page break", null=True, blank=True, max_length=3000)
+    body5 = models.TextField(verbose_name=" Body 5 (Optional) --- Enter one paragraph at a time for page break", null=True, blank=True, max_length=3000)
+    bullet1 = models.TextField(verbose_name=" Bullet Points 1 (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    bullet2 = models.TextField(verbose_name=" Bullet Points 2 (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    bullet3 = models.TextField(verbose_name=" Bullet Points 3 (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    bullet4 = models.TextField(verbose_name=" Bullet Points 4 (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    bullet5 = models.TextField(verbose_name=" Bullet Points 5 (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
 
     def __str__(self):
         return str(self.title + self.display())

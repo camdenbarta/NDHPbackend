@@ -19,7 +19,7 @@ class Policy_Position_Serializer(serializers.ModelSerializer):
 class News_Letter_Serializer(serializers.ModelSerializer):
     class Meta:
         model = News_Letter
-        fields = ['order_no','title', 'author','body','created_on']
+        fields = ['order_no','title', 'author','body1','body2','body3','body4','body5','bullet1','bullet2','bullet3','bullet4','bullet5']
 
 class Meet_Member_Serializer(serializers.ModelSerializer):
     class Meta:
