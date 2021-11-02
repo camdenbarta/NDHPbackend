@@ -24,7 +24,7 @@ class News_Letter_Serializer(serializers.ModelSerializer):
 class Meet_Member_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Meet_Member
-        fields = ['order_no','name', 'position', 'image', 'about']
+        fields = ['order_no','name', 'title', 'image', 'about']
 
 class Image_Video_Serializer(serializers.ModelSerializer):
     location = serializers.StringRelatedField(many=False)
