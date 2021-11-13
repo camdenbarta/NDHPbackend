@@ -14,12 +14,12 @@ class Party_Contact_Serializer(serializers.ModelSerializer):
 class Policy_Position_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Policy_Position
-        fields = ['order_no','position_name', 'description']
+        fields = ['order_no','position_name', 'description', 'bullet1', 'bullet2', 'bullet3', 'bullet4']
 
 class News_Letter_Serializer(serializers.ModelSerializer):
     class Meta:
         model = News_Letter
-        fields = ['order_no','title', 'author','body','created_on']
+        fields = ['order_no','title', 'author','body1','body2','body3','body4','body5','bullet1','bullet2','bullet3','bullet4','bullet5']
 
 class Meet_Member_Serializer(serializers.ModelSerializer):
     class Meta:
@@ -30,12 +30,12 @@ class Image_Video_Serializer(serializers.ModelSerializer):
     location = serializers.StringRelatedField(many=False)
     class Meta:
         model = Image_Video
-        fields = ['location', 'order_no', 'title', 'image', 'video_URL']
+        fields = ['location', 'title', 'image', 'video_URL']
 
 class Contact_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
-        fields = ['name','email', 'phone', 'message']
+        fields = ['first_name','last_name','email', 'phone', 'message']
 
 class About_Serializer(serializers.ModelSerializer):
     class Meta:

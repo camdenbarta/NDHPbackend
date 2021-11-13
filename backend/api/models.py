@@ -20,6 +20,7 @@ class Page(models.TextChoices):
     FOURTH = 'Home',"Home"
     FIFTH = 'Meet the Members',"Meet the Members"
     SIXTH = 'News Letter',"News Letter"
+    SEVENTH = 'Policy Positions', "Policy Positions"
 
 class Card(models.TextChoices):
     FIRST = 'Card 1',"Card 1"
@@ -48,15 +49,22 @@ class Party_Contact(PreSet):
     city = models.CharField(verbose_name="Member's Current City (Optional)", null=True, blank=True, max_length=24)
     state = models.CharField(verbose_name="Member's Current State (Optional)", null=True, blank=True, max_length=24)
 
+    class Meta:
+        verbose_name = "Party Contact"
+        verbose_name_plural = "Party Contacts"
+
     def __str__(self):
         return str(self.name + " || "+ self.email + self.display())
 
 class Policy_Position(PreSet):
-    position_name = models.CharField(verbose_name="Position Title", null=True, blank=False, max_length=60)
-    description = models.TextField(verbose_name="Position Description (Optional)", null=True, blank=True, max_length=260)
-    bullet = models.TextField(verbose_name="Position Bullet Points (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    position_name = models.CharField(verbose_name="Position Display Name", null=True, blank=False, max_length=60)
+    description = models.TextField(verbose_name="Position Description (Optional)", null=True, blank=True, max_length=500)
+    bullet1 = models.TextField(verbose_name="Position Bullet Points (Optional) --- This will be after the paragraph *Enter one at a time", null=True, blank=True, max_length=300)
+    bullet2 = models.TextField(verbose_name="Position Bullet Points (Optional) --- This will be after the paragraph *Enter one at a time", null=True, blank=True, max_length=300)
+    bullet3 = models.TextField(verbose_name="Position Bullet Points (Optional) --- This will be afterthe paragraph *Enter one at a time", null=True, blank=True, max_length=300)
+    bullet4 = models.TextField(verbose_name="Position Bullet Points (Optional) --- This will be afterthe paragraph *Enter one at a time", null=True, blank=True, max_length=300)
 
-    class meta:
+    class Meta:
         verbose_name = "Policy Position"
         verbose_name_plural ="Policy Positions"
 
@@ -66,8 +74,20 @@ class Policy_Position(PreSet):
 class News_Letter(PreSet):
     title = models.CharField(verbose_name="Title of the Article", null=True, blank=False, max_length=30)
     author = models.CharField(verbose_name="News Letter Author (Optional)", null=True, blank=True, max_length=50)
-    body = models.TextField(verbose_name="News Letter body/ paragraph *Enter one paragraph at a time for page break", null=True, blank=False, max_length=3000)
-    bullet = models.TextField(verbose_name="News Letter Bullet Points (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    body1 = models.TextField(verbose_name=" Body 1 --- Enter one paragraph at a time for page break", null=True, blank=False, max_length=3000)
+    body2 = models.TextField(verbose_name=" Body 2 (Optional) --- Enter one paragraph at a time for page break", null=True, blank=True, max_length=3000)
+    body3 = models.TextField(verbose_name=" Body 3 (Optional) --- Enter one paragraph at a time for page break", null=True, blank=True, max_length=3000)
+    body4 = models.TextField(verbose_name=" Body 4 (Optional) --- Enter one paragraph at a time for page break", null=True, blank=True, max_length=3000)
+    body5 = models.TextField(verbose_name=" Body 5 (Optional) --- Enter one paragraph at a time for page break", null=True, blank=True, max_length=3000)
+    bullet1 = models.TextField(verbose_name=" Bullet Points 1 (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    bullet2 = models.TextField(verbose_name=" Bullet Points 2 (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    bullet3 = models.TextField(verbose_name=" Bullet Points 3 (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    bullet4 = models.TextField(verbose_name=" Bullet Points 4 (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+    bullet5 = models.TextField(verbose_name=" Bullet Points 5 (Optional) --- This will be after all of the paragraphs *Enter one at a time", null=True, blank=True, max_length=260)
+
+    class Meta:
+        verbose_name = "News Letter"
+        verbose_name_plural ="News Letters"
 
     def __str__(self):
         return str(self.title + self.display())
@@ -78,32 +98,46 @@ class Meet_Member(PreSet):
     image = models.ImageField(null=True, blank=True, upload_to=nameFile)
     about = models.TextField(null=True, blank=True, max_length=2000)
 
+    class Meta:
+        verbose_name = "Meet the Member"
+        verbose_name_plural ="Meet the Members"
+
     def __str__(self):
         return str(self.name + self.display())
 
-class Image_Video(PreSet):
+class Image_Video(models.Model):
     title = models.CharField(null=True, blank=False, max_length=50)
     location = models.CharField(verbose_name='Location in Website', max_length=20, default=Page.FOURTH, choices=Page.choices)
     image = models.ImageField(null=True, blank=True, upload_to=nameFile)
     video_URL = models.URLField(null=True, blank=True)
 
+    class Meta:
+        verbose_name = "Image or Video"
+        verbose_name_plural = "Images or Videos"
+
     def __str__(self):
-        return str(self.title + " || Page: "+ str(self.location) + self.display())
+        return str(self.title + " || Page: "+ str(self.location))
 
 class Contact(models.Model):
-    name = models.CharField(null=True, blank=False,max_length=50)
+    first_name = models.CharField(null=True, blank=False,max_length=50)
+    last_name = models.CharField(null=True, blank=False,max_length=50)
     email = models.CharField(null=True, blank=False, max_length=100)
     phone = models.CharField(null=True, blank=True, max_length=15)
     message = models.CharField(null=True, blank=True,max_length=350)
+
+    class Meta:
+        verbose_name = "Contact Form"
   
     def __str__(self):
-        return str(self.name)
+        return str(self.first_name + ' ' + self.last_name)
 
 class About(PreSet):
     title = models.CharField(null=True, blank=False, max_length=50)
     paragraph = models.TextField(null=True,blank=True,max_length=3000)
     bullet = models.TextField(null=True,blank=True,max_length=3000)
 
+    class Meta:
+        verbose_name = "About"
 
     def __str__(self):
         return str(self.title + self.display())
@@ -114,6 +148,10 @@ class Archive(PreSet):
     banner = models.ImageField(null=True, blank=True, upload_to=nameFile)
     logo = models.ImageField(null=True, blank=True, upload_to=nameFile)
     video = models.URLField(null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Archive"
+        verbose_name_plural ="Archives"
 
     def __str__(self):
         return str(self.author + self.display())
