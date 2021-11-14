@@ -1,8 +1,8 @@
 from rest_framework.response import Response
 from backend.settings import EMAIL_HOST_USER, SEND_EMAIL_USER
 from django.http.response import HttpResponse
-from .serializers import About_Serializer, Archive_Serializer, Contact_Serializer, Image_Video_Serializer, Meet_Member_Serializer, News_Letter_Serializer, Party_Contact_Serializer, Policy_Position_Serializer
-from .models import About, Archive, Contact, Image_Video, Meet_Member, News_Letter, Order_On_Page, Party_Contact, Policy_Position
+from .serializers import About_Serializer, Archive_Serializer, Carousel_Serializer, Contact_Serializer, Image_Video_Serializer, Meet_Member_Serializer, News_Letter_Serializer, Party_Contact_Serializer, Policy_Position_Serializer
+from .models import About, Archive, Carousel, Contact, Image_Video, Meet_Member, News_Letter, Order_On_Page, Party_Contact, Policy_Position
 from rest_framework import serializers, viewsets
 from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
@@ -49,52 +49,17 @@ class About_List(viewsets.ModelViewSet):
 
     def get(self, request):
         return HttpResponse(self.queryset)
-'''
-#About card 1
-def about1(self):
-    orderset = About.objects.filter(card_no='Card 1')
-    serializer = About_Serializer(orderset)
-    return HttpResponse(serializer.data)
-
-#About card 2
-def about2(request):
-    if request.method =='GET':
-        orderset = About.objects.filter(card_no='Card 2')
-        serializer_class = About_Serializer
-    return HttpResponse(orderset)
-
-#About card 3
-def about3(request):
-    if request.method =='GET':
-        orderset = About.objects.filter(card_no='Card 3')
-        serializer_class = About_Serializer
-    return HttpResponse(orderset)
-
-#About card 4
-def about4(request):
-    if request.method =='GET':
-        orderset = About.objects.filter(card_no='Card 4')
-        serializer_class = About_Serializer
-    return HttpResponse(orderset)
-
-#About card 5
-def about5(request):
-    if request.method =='GET':
-        orderset = About.objects.filter(card_no='Card 5')
-        serializer_class = About_Serializer
-    return HttpResponse(orderset)
-
-#About card 6
-def about6(request):
-    if request.method =='GET':
-        orderset = About.objects.filter(card_no='Card 6')
-        serializer_class = About_Serializer
-    return HttpResponse(orderset)
-'''
 
 class Archive_List(viewsets.ModelViewSet):
     queryset = Archive.objects.all()
     serializer_class = Archive_Serializer
+
+    def get(self, request):
+        return HttpResponse(self.queryset)
+
+class Carousel_List(viewsets.ModelViewSet):
+    queryset = Carousel.objects.all()
+    serializer_class = Carousel_Serializer
 
     def get(self, request):
         return HttpResponse(self.queryset)

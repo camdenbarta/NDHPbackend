@@ -93,10 +93,10 @@ class News_Letter(PreSet):
         return str(self.title + self.display())
 
 class Meet_Member(PreSet):
-    name = models.CharField(null=True, blank=False, max_length=60)
+    name = models.CharField(verbose_name="Member's Name", null=True, blank=False, max_length=60)
     title =models.CharField(verbose_name="Position Title", null=True, blank=True, max_length=50)
     image = models.ImageField(null=True, blank=True, upload_to=nameFile)
-    about = models.TextField(null=True, blank=True, max_length=2000)
+    about = models.TextField(verbose_name="Member's Bio", null=True, blank=True, max_length=2000)
 
     class Meta:
         verbose_name = "Meet the Member"
@@ -106,7 +106,7 @@ class Meet_Member(PreSet):
         return str(self.name + self.display())
 
 class Image_Video(models.Model):
-    title = models.CharField(null=True, blank=False, max_length=50)
+    title = models.CharField(verbose_name="Name Listed", null=True, blank=False, max_length=50)
     location = models.CharField(verbose_name='Location in Website', max_length=20, default=Page.FOURTH, choices=Page.choices)
     image = models.ImageField(null=True, blank=True, upload_to=nameFile)
     video_URL = models.URLField(null=True, blank=True)
@@ -132,9 +132,9 @@ class Contact(models.Model):
         return str(self.first_name + ' ' + self.last_name)
 
 class About(PreSet):
-    title = models.CharField(null=True, blank=False, max_length=50)
-    paragraph = models.TextField(null=True,blank=True,max_length=3000)
-    bullet = models.TextField(null=True,blank=True,max_length=3000)
+    title = models.CharField(verbose_name="Name Listed", null=True, blank=False, max_length=50)
+    paragraph = models.TextField(verbose_name="Paragraph/ Body", null=True,blank=True,max_length=3000)
+    bullet = models.TextField(verbose_name="Bullet Point", null=True,blank=True,max_length=3000)
 
     class Meta:
         verbose_name = "About"
@@ -155,3 +155,14 @@ class Archive(PreSet):
 
     def __str__(self):
         return str(self.author + self.display())
+
+class Carousel(models.Model):
+    imageName = models.CharField(verbose_name="Name of Image", null=True, blank=False, max_length=50)
+    image = models.ImageField(null=True, blank=True, upload_to=nameFile)
+
+    class Meta:
+        verbose_name = "Carousel Image"
+        verbose_name_plural ="Carousel Images"
+
+    def __str__(self):
+        return str(self.image)

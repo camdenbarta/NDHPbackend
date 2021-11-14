@@ -1,4 +1,4 @@
-from .models import About, Archive, Contact, Image_Video, Meet_Member, News_Letter, Party_Contact, Policy_Position, PreSet
+from .models import About, Archive, Carousel, Contact, Image_Video, Meet_Member, News_Letter, Party_Contact, Policy_Position, PreSet
 from rest_framework import serializers
 
 class PreSet_Serializer(serializers.ModelSerializer):
@@ -46,3 +46,8 @@ class Archive_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Archive
         fields = ['order_no','author', 'body', 'banner', 'logo', 'video', 'created_on']
+
+class Carousel_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Carousel
+        fields = ['imageName', 'image']

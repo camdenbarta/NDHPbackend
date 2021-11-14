@@ -12,6 +12,7 @@ router.register(r'image-video', views.Image_Video_List)
 router.register(r'contact', views.Contact_List)
 router.register(r'about', views.About_List)
 router.register(r'records', views.Archive_List)
+router.register(r'carousel', views.Carousel_List)
 
 urlpatterns = [ 
     path('', include(router.urls)),
