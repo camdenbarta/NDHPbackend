@@ -1,19 +1,13 @@
 from rest_framework.response import Response
 from backend.settings import EMAIL_HOST_USER, SEND_EMAIL_USER
 from django.http.response import HttpResponse
-from .serializers import About_Serializer, Archive_Serializer, Carousel_Serializer, Contact_Serializer, Image_Video_Serializer, Meet_Member_Serializer, News_Letter_Serializer, Party_Contact_Serializer, Policy_Position_Serializer
-from .models import About, Archive, Carousel, Contact, Image_Video, Meet_Member, News_Letter, Order_On_Page, Party_Contact, Policy_Position
+from .serializers import About_Serializer, Carousel_Serializer, Contact_Serializer, Image_Serializer, Meet_Member_Serializer, News_Letter_Serializer, Policy_Position_Serializer, Video_Serializer
+from .models import About, Carousel, Contact, Image, Meet_Member, News_Letter, Policy_Position, Video
 from rest_framework import serializers, viewsets
 from django.core.mail import send_mail
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 
-class Party_Contact_List(viewsets.ModelViewSet):
-   queryset = Party_Contact.objects.all()
-   serializer_class = Party_Contact_Serializer
-
-   def get(self, request):
-        return HttpResponse(self.queryset)
 
 class Policy_Position_List(viewsets.ModelViewSet):
    queryset = Policy_Position.objects.all()
@@ -36,9 +30,16 @@ class Meet_Member_List(viewsets.ModelViewSet):
     def get(self, request):
         return HttpResponse(self.queryset)
 
-class Image_Video_List(viewsets.ModelViewSet):
-    queryset = Image_Video.objects.all()
-    serializer_class = Image_Video_Serializer
+class Image_List(viewsets.ModelViewSet):
+    queryset = Image.objects.all()
+    serializer_class = Image_Serializer
+
+    def get(self, request):
+        return HttpResponse(self.queryset)
+
+class Video_List(viewsets.ModelViewSet):
+    queryset = Video.objects.all()
+    serializer_class = Video_Serializer
 
     def get(self, request):
         return HttpResponse(self.queryset)
@@ -46,13 +47,6 @@ class Image_Video_List(viewsets.ModelViewSet):
 class About_List(viewsets.ModelViewSet):
     queryset = About.objects.all()
     serializer_class = About_Serializer
-
-    def get(self, request):
-        return HttpResponse(self.queryset)
-
-class Archive_List(viewsets.ModelViewSet):
-    queryset = Archive.objects.all()
-    serializer_class = Archive_Serializer
 
     def get(self, request):
         return HttpResponse(self.queryset)

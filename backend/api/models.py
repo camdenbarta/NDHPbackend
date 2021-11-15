@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.utils import timezone
+from django.utils.timezone import utc
 
 def nameFile(instance, filename):
     return '/'.join([filename])
@@ -33,28 +34,14 @@ class Card(models.TextChoices):
 class PreSet(models.Model):
     #card_no = models.CharField(verbose_name='What Card the Info Goes In', max_length=8, default=Card.FIRST, choices=Card.choices)
     order_no = models.CharField(verbose_name='Location on Page', max_length=20, default=Order_On_Page.FIRST, choices=Order_On_Page.choices)
-    dateTimeCompleted = models.DateField(verbose_name="Date Completed/Updated", null=True)
+    created_at = models.DateTimeField(verbose_name='Created on', auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name='Updated on', auto_now=True)
 
     class Meta:
         abstract = True
 
     def display(self):
-        return str(" || " +"Page Order: "+str(self.order_no)+  " || " + "Updated: "+ str(self.dateTimeCompleted))
-
-class Party_Contact(PreSet):
-    name = models.CharField(verbose_name="Name of Member", null=True, blank=False, max_length=60)
-    email = models.CharField(verbose_name="Member's Email", null=True, blank=False, max_length=100)
-    position = models.CharField(verbose_name="Position Title (Optional)", null=True, blank=True, max_length=60)
-    phone = models.CharField(verbose_name="Member's Phone Number (Optional)", null=True, blank=True, max_length=15)
-    city = models.CharField(verbose_name="Member's Current City (Optional)", null=True, blank=True, max_length=24)
-    state = models.CharField(verbose_name="Member's Current State (Optional)", null=True, blank=True, max_length=24)
-
-    class Meta:
-        verbose_name = "Party Contact"
-        verbose_name_plural = "Party Contacts"
-
-    def __str__(self):
-        return str(self.name + " || "+ self.email + self.display())
+        return str(" || " +"Page Order: "+str(self.order_no)+  " || " + "Updated: "+ str(self.updated_at.strftime('%H:%M - %m/%d/%Y'))+ " || " + "Created: "+str(self.created_at.strftime('%m/%d/%Y')))
 
 class Policy_Position(PreSet):
     position_name = models.CharField(verbose_name="Position Display Name", null=True, blank=False, max_length=60)
@@ -89,6 +76,12 @@ class News_Letter(PreSet):
         verbose_name = "News Letter"
         verbose_name_plural ="News Letters"
 
+    def getDate(self):
+        return str(self.created_at.strftime('%m/%d/%Y'))
+    
+    def getYear(self):
+        return str(self.created_at.strftime('%Y'))
+
     def __str__(self):
         return str(self.title + self.display())
 
@@ -105,18 +98,37 @@ class Meet_Member(PreSet):
     def __str__(self):
         return str(self.name + self.display())
 
-class Image_Video(models.Model):
+class Image(models.Model):
     title = models.CharField(verbose_name="Name Listed", null=True, blank=False, max_length=50)
     location = models.CharField(verbose_name='Location in Website', max_length=20, default=Page.FOURTH, choices=Page.choices)
     image = models.ImageField(null=True, blank=True, upload_to=nameFile)
-    video_URL = models.URLField(null=True, blank=True)
+    created_at = models.DateTimeField(verbose_name='Created on', auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name='Updated on', auto_now=True)
+
 
     class Meta:
-        verbose_name = "Image or Video"
-        verbose_name_plural = "Images or Videos"
+        verbose_name = "Image"
+        verbose_name_plural = "Images"
 
     def __str__(self):
-        return str(self.title + " || Page: "+ str(self.location))
+        return str(self.title + " || Page: "+ str(self.location)+  " || " + "Updated: "+ str(self.updated_at.strftime('%H:%M - %m/%d/%Y'))+  " || " + "Created: "+str(self.created_at.strftime('%m/%d/%Y')))
+
+class Video(models.Model):
+    title = models.CharField(verbose_name="Name Listed", null=True, blank=False, max_length=50)
+    location = models.CharField(verbose_name='Location in Website', max_length=20, default=Page.FOURTH, choices=Page.choices)
+    video_URL = models.URLField(null=True, blank=True)
+    created_at = models.DateTimeField(verbose_name='Created on', auto_now_add=True)
+    updated_at = models.DateTimeField(verbose_name='Updated on', auto_now=True)
+
+
+    class Meta:
+        verbose_name = "Video"
+        verbose_name_plural = "Videos"
+
+    def __str__(self):
+        return str(self.title + " || Page: "+ str(self.location)+  " || " + "Updated: "+ str(self.updated_at.strftime('%H:%M - %m/%d/%Y'))+  " || " + "Created: "+str(self.created_at.strftime('%m/%d/%Y')))
+
+
 
 class Contact(models.Model):
     first_name = models.CharField(null=True, blank=False,max_length=50)
@@ -124,12 +136,14 @@ class Contact(models.Model):
     email = models.CharField(null=True, blank=False, max_length=100)
     phone = models.CharField(null=True, blank=True, max_length=15)
     message = models.CharField(null=True, blank=True,max_length=350)
+    created_at = models.DateTimeField(verbose_name='Submitted on', auto_now_add=True)
+
 
     class Meta:
         verbose_name = "Contact Form"
   
     def __str__(self):
-        return str(self.first_name + ' ' + self.last_name)
+        return str(self.first_name + ' ' + self.last_name + ' || ' +'Submitted: '+str(self.created_at.strftime('%m/%d/%Y')))
 
 class About(PreSet):
     title = models.CharField(verbose_name="Name Listed", null=True, blank=False, max_length=50)
@@ -141,28 +155,15 @@ class About(PreSet):
 
     def __str__(self):
         return str(self.title + self.display())
-    
-class Archive(PreSet):
-    author = models.CharField(null=True, blank=True, max_length=50)
-    body = models.TextField(null=True, blank=True, max_length=3000)
-    banner = models.ImageField(null=True, blank=True, upload_to=nameFile)
-    logo = models.ImageField(null=True, blank=True, upload_to=nameFile)
-    video = models.URLField(null=True, blank=True)
-
-    class Meta:
-        verbose_name = "Archive"
-        verbose_name_plural ="Archives"
-
-    def __str__(self):
-        return str(self.author + self.display())
 
 class Carousel(models.Model):
     imageName = models.CharField(verbose_name="Name of Image", null=True, blank=False, max_length=50)
     image = models.ImageField(null=True, blank=True, upload_to=nameFile)
+    created_at = models.DateTimeField(verbose_name='Created on', auto_now_add=True)
 
     class Meta:
         verbose_name = "Carousel Image"
         verbose_name_plural ="Carousel Images"
 
     def __str__(self):
-        return str(self.image)
+        return str(self.imageName+ " || " + "Created: "+str(self.created_at.strftime('%m/%d/%Y')))
